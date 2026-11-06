@@ -1,0 +1,5 @@
+# GitHub Pages: project notes stay in the repo but aren't published with the site
+exclude:
+  - PRODUCT.md
+  - "images/*.json"
+  - "images/clients/*.json"
