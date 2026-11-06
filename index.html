@@ -26,8 +26,8 @@
         setTimeout(() => document.documentElement.classList.remove("intro"), 4000);
       }
     </script>
-    <link rel="stylesheet" href="css/style.css?v=20261106b">
-    <script src="js/main.js?v=20261106b" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=20261106e">
+    <script src="js/main.js?v=20261106e" defer></script>
   </head>
   <body>
     <svg class="sprite" aria-hidden="true" width="0" height="0">
@@ -49,7 +49,7 @@
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu"><span></span><span></span></button>
       <div class="nav__menu" id="nav-menu">
         <nav aria-label="Main">
-          <a href="#flush" aria-current="page">Work</a>
+          <a href="#clients" aria-current="page">Work</a>
           <a href="about.html">About</a>
           <a href="writing.html">Writing</a>
           <a href="resume.html">Resume</a>
@@ -84,11 +84,28 @@
         </div>
       </section>
 
-      <section class="clients">
-        <img src="images/clients.webp" srcset="images/clients-800.webp 800w, images/clients.webp 1400w" sizes="(min-width: 74rem) 68rem, 92vw" width="1400" height="448" loading="lazy" decoding="async" alt="Past clients: Jostens, Athenos, Lifetime, I Can’t Believe It’s Not Butter, Polaris, Paramount, Medtronic, Ecolab, Pure Barre, Julian Bakery, Roth, Ceywa, Red’s, Bulletproof and Samurai Shack.">
+      <section class="clients" id="clients" aria-labelledby="clients-title">
+        <h2 class="heading" id="clients-title">Some companies I’ve worked for</h2>
+        <ul class="clients__grid">
+          <li style="--w: 54"><img src="images/clients/lifetime.webp" width="363" height="115" loading="lazy" decoding="async" alt="Lifetime"></li>
+          <li style="--w: 40"><img src="images/clients/polaris.webp" width="207" height="141" loading="lazy" decoding="async" alt="Polaris"></li>
+          <li style="--w: 72"><img src="images/clients/medtronic.webp" width="359" height="65" loading="lazy" decoding="async" alt="Medtronic"></li>
+          <li style="--w: 36"><img src="images/clients/paramount.webp" width="259" height="205" loading="lazy" decoding="async" alt="Paramount"></li>
+          <li style="--w: 42"><img src="images/clients/bulletproof.webp" width="143" height="81" loading="lazy" decoding="async" alt="Bulletproof"></li>
+          <li style="--w: 66"><img src="images/clients/ecolab.webp" width="348" height="74" loading="lazy" decoding="async" alt="Ecolab"></li>
+          <li style="--w: 38"><img src="images/clients/icbinb.webp" width="150" height="104" loading="lazy" decoding="async" alt="I Can’t Believe It’s Not Butter"></li>
+          <li style="--w: 56"><img src="images/clients/samurai-shack.webp" width="284" height="94" loading="lazy" decoding="async" alt="Samurai Shack"></li>
+          <li style="--w: 31"><img src="images/clients/roth.webp" width="114" height="113" loading="lazy" decoding="async" alt="Roth"></li>
+          <li style="--w: 48"><img src="images/clients/athenos.webp" width="191" height="79" loading="lazy" decoding="async" alt="Athenos"></li>
+          <li style="--w: 44"><img src="images/clients/jostens.webp" width="231" height="131" loading="lazy" decoding="async" alt="Jostens"></li>
+          <li style="--w: 74"><img src="images/clients/pure-barre.webp" width="310" height="53" loading="lazy" decoding="async" alt="Pure Barre"></li>
+          <li style="--w: 46"><img src="images/clients/reds.webp" width="156" height="65" loading="lazy" decoding="async" alt="Red’s"></li>
+          <li style="--w: 41"><img src="images/clients/julian-bakery.webp" width="190" height="103" loading="lazy" decoding="async" alt="Julian Bakery"></li>
+          <li style="--w: 50"><img src="images/clients/ceywa.webp" width="203" height="67" loading="lazy" decoding="async" alt="Ceywa"></li>
+        </ul>
       </section>
 
-      <section class="flush" id="flush" aria-labelledby="flush-title">
+      <section class="flush" aria-labelledby="flush-title">
         <a class="player" href="https://www.youtube.com/watch?v=Ql2tPNLxDdg&amp;t=3s" data-yt="Ql2tPNLxDdg" data-start="3" aria-label="Play FLUSH">
           <img src="images/thumb-flush.webp" srcset="images/thumb-flush-640.webp 640w, images/thumb-flush.webp 1280w" sizes="(min-width: 900px) 68vw, 92vw" alt="" width="1280" height="720" loading="lazy" decoding="async">
           <span class="player__btn"><svg><use href="#i-play"/></svg></span>

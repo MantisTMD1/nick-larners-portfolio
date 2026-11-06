@@ -233,6 +233,7 @@ if (!calm && "IntersectionObserver" in window) {
   document.querySelectorAll(".wall__posters figure").forEach((poster, index) => {
     poster.style.setProperty("--delay", `${(index % 3) * 0.1}s`);
   });
+  stagger(".clients img", 0.035);
   stagger(".close > div", 0.12);
   stagger(".quotes figure", 0.12);
   stagger(".writing__list li", 0.04);
