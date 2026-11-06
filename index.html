@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nick Larner | Video Editor &amp; Motion GFX Artist, St. Paul, MN</title>
-    <meta name="description" content="Nick Larner is a video editor and motion graphics artist in St. Paul, MN. Short films, motion graphics, food reels and editorial work, including the award-winning short FLUSH.">
+    <title>Nick Larner | Video Editor &amp; Motion GFX Artist</title>
+    <meta name="description" content="Nick Larner is a video editor and motion graphics artist. Short films, motion graphics, food reels and editorial work, including the award-winning short FLUSH.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Larner Co">
     <meta property="og:url" content="https://www.larner-co.com/">
     <meta property="og:title" content="Nick Larner | Video Editor &amp; Motion GFX Artist">
-    <meta property="og:description" content="Nick Larner is a video editor and motion graphics artist in St. Paul, MN. Short films, motion graphics, food reels and editorial work, including the award-winning short FLUSH.">
+    <meta property="og:description" content="Nick Larner is a video editor and motion graphics artist. Short films, motion graphics, food reels and editorial work, including the award-winning short FLUSH.">
     <meta property="og:image" content="https://www.larner-co.com/images/share.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -19,6 +19,12 @@
     <link rel="icon" href="images/fido.webp" type="image/webp">
     <link rel="preload" as="font" href="fonts/jost-latin.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="image" href="images/logo-hero.webp" imagesrcset="images/logo-hero-900.webp 900w, images/logo-hero-1200.webp 1200w, images/logo-hero.webp 1800w" imagesizes="(min-width: 900px) 54vw, 90vw">
+    <script>
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("intro");
+        setTimeout(() => document.documentElement.classList.remove("intro"), 4000);
+      }
+    </script>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js" defer></script>
   </head>
@@ -48,14 +54,14 @@
           <a href="https://www.larner-co.com/resume">Resume</a>
           <a href="https://www.larner-co.com/contact">Contact</a>
         </nav>
+        <ul class="social" aria-label="Elsewhere">
+          <li><a href="https://www.linkedin.com/in/larnernick/" target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)"><svg><use href="#i-linkedin"/></svg></a></li>
+          <li><a href="https://www.instagram.com/milk._.steak" target="_blank" rel="noopener" aria-label="Instagram (opens in a new tab)"><svg><use href="#i-instagram"/></svg></a></li>
+          <li><a href="https://www.imdb.com/name/nm8227823/" target="_blank" rel="noopener" aria-label="IMDb (opens in a new tab)"><svg><use href="#i-imdb"/></svg></a></li>
+          <li><a href="mailto:larnerco@gmail.com" aria-label="Email"><svg><use href="#i-mail"/></svg></a></li>
+          <li><a href="https://www.facebook.com/flush.film.2023" target="_blank" rel="noopener" aria-label="FLUSH on Facebook (opens in a new tab)"><svg><use href="#i-facebook"/></svg></a></li>
+        </ul>
       </div>
-      <ul class="social" aria-label="Elsewhere">
-        <li><a href="https://www.linkedin.com/in/larnernick/" target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)"><svg><use href="#i-linkedin"/></svg></a></li>
-        <li><a href="https://www.instagram.com/milk._.steak" target="_blank" rel="noopener" aria-label="Instagram (opens in a new tab)"><svg><use href="#i-instagram"/></svg></a></li>
-        <li><a href="https://www.imdb.com/name/nm8227823/" target="_blank" rel="noopener" aria-label="IMDb (opens in a new tab)"><svg><use href="#i-imdb"/></svg></a></li>
-        <li><a href="mailto:larnerco@gmail.com" aria-label="Email"><svg><use href="#i-mail"/></svg></a></li>
-        <li><a href="https://www.facebook.com/flush.film.2023" target="_blank" rel="noopener" aria-label="FLUSH on Facebook (opens in a new tab)"><svg><use href="#i-facebook"/></svg></a></li>
-      </ul>
     </header>
 
     <main id="main">
@@ -64,7 +70,7 @@
         <div class="hero__inner">
           <h1 class="hero__logo"><img src="images/logo-hero.webp" srcset="images/logo-hero-900.webp 900w, images/logo-hero-1200.webp 1200w, images/logo-hero.webp 1800w" sizes="(min-width: 900px) 54vw, 90vw" alt="Larner Co" width="1800" height="755" fetchpriority="high"></h1>
           <div class="hero__intro">
-            <p class="hero__role">Nick Larner · Video Editor / Motion GFX Artist · St. Paul, MN</p>
+            <p class="hero__role">Nick Larner · Video Editor / Motion GFX Artist</p>
             <p class="hero__lead">Thanks for visiting my website. It’s a solid collection of some of the things I’ve been working on over the years.</p>
             <p>As far as I’m concerned, my most important job is to make each project as visually and narratively compelling as I possibly can, and hopefully that comes through in my work.</p>
             <p class="hero__sign">-NL</p>
@@ -165,6 +171,7 @@
       <div class="foot__base">
         <img src="images/logo-footer.webp" alt="Larner Co" width="640" height="268" loading="lazy" decoding="async">
         <a href="mailto:larnerco@gmail.com">larnerco@gmail.com</a>
+        <a class="action foot__top" href="#top">Back to top <svg><use href="#i-arrow"/></svg></a>
       </div>
     </footer>
   </body>

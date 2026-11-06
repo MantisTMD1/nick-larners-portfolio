@@ -61,6 +61,39 @@ if (canHover && !calm) {
   });
 }
 
+// Hero intro, after Nick's motion logo: a whip zoom into the logo, then the dog pops in
+const root = document.documentElement;
+
+if (root.classList.contains("intro")) {
+  const logo = document.querySelector(".hero__logo img");
+  const dog = logo.cloneNode();
+  dog.className = "hero__dog";
+  dog.alt = "";
+  logo.after(dog);
+
+  let end;
+
+  function finish() {
+    clearTimeout(end);
+    skips.forEach((type) => removeEventListener(type, finish));
+    root.classList.add("intro-played");
+    root.classList.remove("intro", "intro-whip");
+    dog.remove();
+  }
+
+  // Anyone in a hurry can skip it
+  const skips = ["pointerdown", "keydown", "wheel", "touchstart"];
+  skips.forEach((type) => addEventListener(type, finish, { passive: true }));
+
+  // Start once the logo can actually be drawn. A timer ends it, so it still finishes in a background tab
+  const start = () => {
+    if (!root.classList.contains("intro")) return;
+    root.classList.add("intro-whip");
+    end = setTimeout(finish, 1900);
+  };
+  logo.decode().then(start, start);
+}
+
 // YouTube videos load only when someone presses play
 document.querySelectorAll(".player[data-yt]").forEach((player) => {
   player.addEventListener("click", (event) => {
