@@ -49,11 +49,11 @@
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu"><span></span><span></span></button>
       <div class="nav__menu" id="nav-menu">
         <nav aria-label="Main">
-          <a href="./" aria-current="page">Work</a>
-          <a href="https://www.larner-co.com/about">About</a>
-          <a href="https://www.larner-co.com/writing">Writing</a>
-          <a href="https://www.larner-co.com/resume">Resume</a>
-          <a href="https://www.larner-co.com/contact">Contact</a>
+          <a href="#flush" aria-current="page">Work</a>
+          <a href="about.html">About</a>
+          <a href="writing.html">Writing</a>
+          <a href="resume.html">Resume</a>
+          <a href="contact.html">Contact</a>
         </nav>
         <ul class="social" aria-label="Elsewhere">
           <li><a href="https://www.linkedin.com/in/larnernick/" target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)"><svg><use href="#i-linkedin"/></svg></a></li>
@@ -88,7 +88,7 @@
         <img src="images/clients.webp" srcset="images/clients-800.webp 800w, images/clients.webp 1400w" sizes="(min-width: 74rem) 68rem, 92vw" width="1400" height="448" loading="lazy" decoding="async" alt="Past clients: Jostens, Athenos, Lifetime, I Can’t Believe It’s Not Butter, Polaris, Paramount, Medtronic, Ecolab, Pure Barre, Julian Bakery, Roth, Ceywa, Red’s, Bulletproof and Samurai Shack.">
       </section>
 
-      <section class="flush" aria-labelledby="flush-title">
+      <section class="flush" id="flush" aria-labelledby="flush-title">
         <a class="player" href="https://www.youtube.com/watch?v=Ql2tPNLxDdg&amp;t=3s" data-yt="Ql2tPNLxDdg" data-start="3" aria-label="Play FLUSH">
           <img src="images/thumb-flush.webp" srcset="images/thumb-flush-640.webp 640w, images/thumb-flush.webp 1280w" sizes="(min-width: 900px) 68vw, 92vw" alt="" width="1280" height="720" loading="lazy" decoding="async">
           <span class="player__btn"><svg><use href="#i-play"/></svg></span>
@@ -155,14 +155,37 @@
         </div>
       </section>
 
+      <section class="quotes" aria-labelledby="quotes-title">
+        <h2 class="heading" id="quotes-title">What People Are Saying</h2>
+        <figure>
+          <blockquote>
+            <p>“Nick was perfect for the project. He has all the skills and experience in one package. Creativity and quality are his business, and he has solid experience and years of dedication to his art and craft.</p>
+            <p>I am very pleased with the finished product. He not only edited the video, but also incorporated motion graphics, graphic design, text, music, etc. On top of that, he is a pleasure to work with – good communicator, responsive, professional, patient, and flexible to the end in making changes so that I was satisfied. He made it all flow with ease.”</p>
+          </blockquote>
+          <figcaption>Rita Dungey, Artist</figcaption>
+        </figure>
+        <figure>
+          <blockquote>
+            <p>“The Cowles Center has had the pleasure to work with Nick on several video projects over the last couple of years. His skills in videography and editing are exceptional. We are always so impressed with his final creations. He is extremely professional in his work ethic. The Cowles Center will absolutely be working with Nick on future projects!”</p>
+          </blockquote>
+          <figcaption>Jessi Fett, Director of Programing &amp; Education, The Cowles Center</figcaption>
+        </figure>
+        <figure>
+          <blockquote>
+            <p>“Nick is an excellent editor and designer. He’s worked on multiple different projects with our team and has brought a lot to the table. He was able to take our abstract ideas and turn them into a polished finished product. He is a good communicator and finished on time, and under budget. I would definitely recommend his services and we will certainly work with him again.”</p>
+          </blockquote>
+          <figcaption>Nick Hansen, Founder, Bashan Creations</figcaption>
+        </figure>
+      </section>
+
       <section class="close">
         <div>
           <p>If you’re interested in working together, please don’t hesitate to shoot me an email by pressing this button here.</p>
-          <a class="action action--solid" href="mailto:larnerco@gmail.com">Contact <svg><use href="#i-arrow"/></svg></a>
+          <a class="action action--solid" href="contact.html">Contact <svg><use href="#i-arrow"/></svg></a>
         </div>
         <div>
           <p>Otherwise, If you like goofy short stories and poems for childish adults, check out my writing below!</p>
-          <a class="action" href="https://www.larner-co.com/writing">Writing <svg><use href="#i-arrow"/></svg></a>
+          <a class="action" href="writing.html">Writing <svg><use href="#i-arrow"/></svg></a>
         </div>
       </section>
     </main>
@@ -171,7 +194,11 @@
       <p class="foot__end">That’s it.</p>
       <div class="foot__base">
         <img src="images/logo-footer.webp" alt="Larner Co" width="640" height="268" loading="lazy" decoding="async">
-        <a href="mailto:larnerco@gmail.com">larnerco@gmail.com</a>
+        <div class="foot__contact">
+          <a href="mailto:larnerco@gmail.com">larnerco@gmail.com</a>
+          <a href="tel:+16517951848">(651) 795-1848</a>
+          <small class="foot__year">© <span id="year">2026</span> Larner Co</small>
+        </div>
         <a class="action foot__top" href="#top">Back to top <svg><use href="#i-arrow"/></svg></a>
       </div>
     </footer>

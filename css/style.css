@@ -589,7 +589,15 @@ a {
 .reels,
 .editorial,
 .close,
-.foot {
+.foot,
+.page-head,
+.contact-body,
+.quotes,
+.about-quote,
+.page-next,
+.writing,
+.resume,
+.resume-dripton {
   width: 100%;
   max-width: var(--max);
   margin-inline: auto;
@@ -612,6 +620,7 @@ a {
 
 .flush {
   padding-top: var(--section);
+  scroll-margin-top: calc(-1 * var(--section)); /* The nav link lands on the content, not the space above it */
   display: grid;
   gap: clamp(1.5rem, 3vw, 3rem);
   align-items: end;
@@ -869,6 +878,601 @@ a {
   text-wrap: pretty;
 }
 
+/* Contact page */
+
+.page-top {
+  margin-top: calc(-1 * var(--nav-h));
+  padding-top: calc(var(--nav-h) + clamp(3rem, 7vw, 6.5rem));
+  background: linear-gradient(to bottom, rgb(47 93 89 / .85), rgb(47 93 89 / .2) 60%, transparent);
+}
+
+.page-head > * {
+  animation: rise-in 1s var(--ease-out) both;
+}
+
+.page-head__title {
+  font-size: clamp(4rem, 13vw, 11rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.page-head__lead {
+  max-width: 34ch;
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+  animation-delay: .12s;
+}
+
+.page-head__lead a {
+  color: var(--gold-bright);
+  overflow-wrap: anywhere;
+}
+
+.contact-body {
+  padding-top: clamp(3rem, 6vw, 5.5rem);
+  display: grid;
+  gap: clamp(3.5rem, 7vw, 7rem);
+}
+
+@media (min-width: 900px) {
+  .contact-body {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  }
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.contact-form__names {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 560px) {
+  .contact-form__names {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field label {
+  display: block;
+  margin-bottom: .45rem;
+  font-weight: 500;
+}
+
+.field label span {
+  color: var(--text-soft);
+  font-size: .85em;
+  font-weight: 400;
+}
+
+.field__hint {
+  margin-bottom: .6rem;
+  color: var(--text-soft);
+  font-size: .9em;
+  line-height: 1.4;
+}
+
+.field input,
+.field textarea {
+  display: block;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: .7rem .9rem;
+  border: 1px solid rgb(244 241 234 / .45);
+  border-radius: 4px;
+  background: rgb(0 0 0 / .45);
+  color: var(--text);
+  font: inherit;
+  transition: border-color .2s, background .2s;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field input:hover,
+.field textarea:hover {
+  border-color: var(--text);
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--gold-bright);
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 1px;
+  background: rgb(0 0 0 / .65);
+}
+
+.field input:user-invalid,
+.field textarea:user-invalid {
+  border-color: #ff9c8a;
+}
+
+.contact-form__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+.contact-form button {
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.contact-form__note {
+  flex: 1 1 14rem;
+  color: var(--text-soft);
+  font-size: .9em;
+  line-height: 1.4;
+}
+
+.contact-form__status:empty {
+  display: none;
+}
+
+.contact-form__status {
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.contact-form__status a {
+  color: var(--gold-bright);
+}
+
+.contact-services ul {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-services li {
+  padding-block: .9rem;
+  border-top: 1px solid rgb(244 241 234 / .22);
+  line-height: 1.35;
+}
+
+.quotes {
+  padding-top: var(--section);
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+@media (min-width: 900px) {
+  .quotes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+.quotes .heading {
+  grid-column: 1 / -1;
+}
+
+.quotes figure {
+  margin: 0;
+}
+
+.quotes blockquote {
+  margin: 0;
+  display: grid;
+  gap: 1em;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.quotes figcaption {
+  margin-top: 1.25rem;
+  color: var(--gold-bright);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* About page: Nick sits in the paper, and the lights come up on him */
+
+.about-hero {
+  position: relative;
+  overflow: clip;
+}
+
+.about-hero__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: 52% 30%;
+  mask-image: linear-gradient(to top, transparent, #000 30%, #000 94%, transparent); /* The photo's edges fall away into the paper */
+  animation: lights-up 1.8s ease-out both;
+}
+
+@keyframes lights-up {
+  0% {
+    filter: brightness(.04) saturate(.5);
+    scale: 1.05;
+  }
+  28% { filter: brightness(.55) saturate(.8); }
+  36% { filter: brightness(.25) saturate(.7); }
+  100% {
+    filter: none;
+    scale: 1;
+  }
+}
+
+.about-hero__copy {
+  position: relative;
+  width: 100%;
+  max-width: var(--max);
+  margin: -5.5rem auto 0;
+  padding-inline: var(--gutter);
+}
+
+.about-hero__copy > * {
+  animation: rise-in 1s var(--ease-out) .35s both;
+}
+
+.about-hero__copy p {
+  max-width: 34ch;
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  font-size: clamp(1.3rem, 1.1rem + .6vw, 1.75rem);
+  line-height: 1.32;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+  animation-delay: .5s;
+}
+
+@media (min-width: 900px) {
+  .about-hero {
+    min-height: calc(100svh - var(--nav-h));
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .about-hero__photo {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 76%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-position: 50% 18%;
+    mask-image:
+      linear-gradient(to right, transparent, #000 26%),
+      linear-gradient(to top, transparent, #000 20%, #000 96%, transparent);
+    mask-composite: intersect;
+  }
+
+  .about-hero__copy {
+    margin-top: 0;
+    padding-top: 2rem;
+    padding-bottom: clamp(2rem, 5vh, 4rem);
+  }
+
+  .about-hero__copy p {
+    max-width: min(34ch, 38vw);
+  }
+}
+
+.about-quote {
+  margin-block: 0;
+  padding-top: var(--section);
+}
+
+.about-quote p {
+  max-width: 24ch;
+  color: var(--gold-bright);
+  font-size: clamp(2.25rem, 1.2rem + 4.2vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+
+.about-quote .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The quote lights up a word at a time as it scrolls through */
+@supports (animation-timeline: view()) {
+  .about-hero__photo {
+    animation:
+      lights-up 1.8s ease-out both,
+      about-drift linear both;
+    animation-timeline: auto, view();
+    animation-range: normal, exit;
+  }
+
+  @keyframes about-drift {
+    to { translate: 0 10%; }
+  }
+
+  .about-quote {
+    view-timeline: --quote block;
+  }
+
+  .about-quote .word {
+    animation: word-lit linear both;
+    animation-timeline: --quote;
+    animation-range:
+      cover calc(10% + var(--p) * 32%)
+      cover calc(16% + var(--p) * 32%);
+  }
+
+  @keyframes word-lit {
+    from { color: rgb(244 241 234 / .2); }
+  }
+}
+
+.page-next {
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+}
+
+.page-next ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+@media (min-width: 760px) {
+  .page-next ul {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--gap);
+  }
+}
+
+.page-next li {
+  border-top: 1px solid var(--gold);
+}
+
+.page-next a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: clamp(.9rem, 1.6vw, 1.4rem);
+  color: var(--text);
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -.025em;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.page-next svg {
+  flex: none;
+  width: .7em;
+  height: .7em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform .35s var(--ease-out);
+}
+
+.page-next a:hover,
+.page-next a:focus-visible {
+  color: var(--gold-bright);
+}
+
+.page-next a:hover svg {
+  transform: translateX(.2em);
+}
+
+/* Writing page: a contents page, set large */
+
+.writing {
+  padding-top: clamp(3rem, 6vw, 5rem);
+}
+
+.writing__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid rgb(244 241 234 / .22);
+}
+
+.writing__list li {
+  border-top: 1px solid rgb(244 241 234 / .22);
+}
+
+.writing__list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: clamp(.8rem, 1.6vw, 1.4rem);
+  color: var(--text);
+  font-size: clamp(2rem, 1.2rem + 3.6vw, 5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color .2s, padding-left .35s var(--ease-out);
+}
+
+.writing__list svg {
+  flex: none;
+  width: .6em;
+  height: .6em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform .35s var(--ease-out);
+}
+
+.writing__list a:hover,
+.writing__list a:focus-visible {
+  color: var(--gold-bright);
+  padding-left: .25em;
+}
+
+.writing__list a:hover svg {
+  transform: translateX(.1em);
+}
+
+/* Resume page */
+
+.page-head__lead strong {
+  font-weight: inherit;
+  color: var(--gold-bright);
+}
+
+.resume {
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+  display: grid;
+  gap: clamp(3.5rem, 7vw, 6rem);
+}
+
+@media (min-width: 900px) {
+  .resume {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    column-gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+}
+
+.resume__sub {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  margin-bottom: .75rem;
+  color: var(--gold-bright);
+  font-size: clamp(1.25rem, 1.1rem + .5vw, 1.6rem);
+  font-weight: 500;
+}
+
+.timeline,
+.timeline ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline > li {
+  display: grid;
+  gap: .35rem 1.5rem;
+  padding-block: 1.1rem;
+  border-top: 1px solid rgb(244 241 234 / .22);
+}
+
+@media (min-width: 560px) {
+  .timeline > li {
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+  }
+}
+
+.timeline__year {
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+}
+
+.timeline__year small {
+  display: block;
+  font-size: .9rem;
+}
+
+.timeline ul {
+  display: grid;
+  gap: .8rem;
+}
+
+.timeline b {
+  font-size: clamp(1.2rem, 1.1rem + .4vw, 1.45rem);
+  font-weight: 500;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+}
+
+.timeline i {
+  color: var(--text-soft);
+  font-style: normal;
+}
+
+.timeline__role,
+.timeline__note {
+  display: block;
+  line-height: 1.4;
+}
+
+.timeline__role {
+  color: var(--text-soft);
+}
+
+.timeline__note {
+  margin-top: .2rem;
+  max-width: 52ch;
+  font-size: .95rem;
+  color: var(--text-soft);
+}
+
+.resume__side {
+  display: grid;
+  gap: clamp(3rem, 5vw, 4rem);
+}
+
+.resume__side .heading {
+  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem);
+}
+
+.resume__list {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume__list li {
+  padding-block: .65rem;
+  border-top: 1px solid rgb(244 241 234 / .22);
+  line-height: 1.35;
+}
+
+.resume__edu {
+  margin-top: 1rem;
+  color: var(--text-soft);
+  line-height: 1.45;
+}
+
+.resume__edu b {
+  display: block;
+  margin-bottom: .35rem;
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.resume-dripton {
+  padding-top: var(--section);
+  display: grid;
+  gap: 1.25rem clamp(3rem, 6vw, 6rem);
+}
+
+@media (min-width: 900px) {
+  .resume-dripton {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  }
+}
+
+.resume-dripton p {
+  max-width: 48ch;
+  font-size: clamp(1.3rem, 1.1rem + .6vw, 1.75rem);
+  line-height: 1.32;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+
 /* Footer */
 
 .foot {
@@ -892,8 +1496,23 @@ a {
   gap: 1.5rem;
 }
 
+.foot__base:first-child {
+  margin-top: 0;
+}
+
 .foot__base img {
   width: clamp(9rem, 16vw, 14rem);
+}
+
+.foot__contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.foot__year {
+  margin-top: .4rem;
+  color: var(--text-soft);
+  font-size: .9rem;
 }
 
 .foot__base a:not(.action) {

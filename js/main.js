@@ -1,3 +1,6 @@
+// Footer year stays current on its own
+document.getElementById("year").textContent = new Date().getFullYear();
+
 // Mobile menu
 const toggle = document.querySelector(".nav__toggle");
 const menu = document.querySelector(".nav__menu");
@@ -23,6 +26,11 @@ toggle.addEventListener("click", () => {
   setMenu(toggle.getAttribute("aria-expanded") !== "true");
 });
 
+// A link can stay on this page, so the menu has to get out of the way itself
+menu.addEventListener("click", (event) => {
+  if (event.target.closest("a")) setMenu(false);
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && menu.classList.contains("is-open")) {
     setMenu(false);
@@ -36,7 +44,7 @@ const lit = document.querySelector(".hero__lit");
 const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-if (canHover && !calm) {
+if (hero && canHover && !calm) {
   const target = { x: 0, y: 0 };
   const light = { x: 0, y: 0 };
   let frame = null;
@@ -94,6 +102,30 @@ if (root.classList.contains("intro")) {
   logo.decode().then(start, start);
 }
 
+// Contact form: a static site can't send mail, so hand the message to the visitor's email app
+const contactForm = document.querySelector(".contact-form");
+
+if (contactForm) {
+  const address = "larnerco@gmail.com";
+
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const { "first-name": first, "last-name": last, email, message } = contactForm.elements;
+    const name = `${first.value.trim()} ${last.value.trim()}`;
+    const subject = `Website inquiry from ${name}`;
+    const body = `${message.value.trim()}\n\n${name}\n${email.value.trim()}`;
+    location.href = `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // A browser with no email app fails silently, so always say what should have happened
+    const status = contactForm.querySelector(".contact-form__status");
+    status.textContent = "Your email app should open with your message, ready to send. If it didn’t, email ";
+    const link = document.createElement("a");
+    link.href = `mailto:${address}`;
+    link.textContent = address;
+    status.append(link, " directly.");
+  });
+}
+
 // YouTube videos load only when someone presses play
 document.querySelectorAll(".player[data-yt]").forEach((player) => {
   player.addEventListener("click", (event) => {
@@ -116,28 +148,51 @@ document.querySelectorAll(".player[data-yt]").forEach((player) => {
 });
 
 // Pause the hero's effects while it's off screen
-new IntersectionObserver(([entry]) => {
-  hero.classList.toggle("is-away", !entry.isIntersecting);
-}).observe(hero);
+if (hero) {
+  new IntersectionObserver(([entry]) => {
+    hero.classList.toggle("is-away", !entry.isIntersecting);
+  }).observe(hero);
+}
 
 // Scroll reveals
 if (!calm && "IntersectionObserver" in window) {
   // "That's it." is split into letters, with the whole phrase kept for screen readers
+  const quote = document.querySelector(".about-quote p");
+  if (quote) {
+    const text = quote.textContent;
+    const pieces = text.split(" ");
+    const words = document.createElement("span");
+    words.setAttribute("aria-hidden", "true");
+    pieces.forEach((piece, index) => {
+      const word = document.createElement("span");
+      word.className = "word";
+      word.style.setProperty("--p", index / (pieces.length - 1));
+      word.textContent = piece;
+      words.append(word, index < pieces.length - 1 ? " " : "");
+    });
+    const spoken = document.createElement("span");
+    spoken.className = "sr-only";
+    spoken.textContent = text;
+    quote.replaceChildren(spoken, words);
+  }
+
   const end = document.querySelector(".foot__end");
-  const phrase = end.textContent;
-  const letters = document.createElement("span");
-  letters.setAttribute("aria-hidden", "true");
-  [...phrase].forEach((character, index) => {
-    const letter = document.createElement("span");
-    letter.className = index === phrase.length - 1 ? "letter letter--last" : "letter";
-    letter.style.setProperty("--i", index);
-    letter.textContent = character === " " ? "\u00a0" : character;
-    letters.append(letter);
-  });
-  const spoken = document.createElement("span");
-  spoken.className = "sr-only";
-  spoken.textContent = phrase;
-  end.replaceChildren(spoken, letters);
+  if (end) {
+    const phrase = end.textContent;
+    const letters = document.createElement("span");
+    letters.setAttribute("aria-hidden", "true");
+    [...phrase].forEach((character, index) => {
+      const letter = document.createElement("span");
+      letter.className = index === phrase.length - 1 ? "letter letter--last" : "letter";
+      letter.style.setProperty("--i", index);
+      letter.textContent = character === " " ? "\u00a0" : character;
+      letters.append(letter);
+    });
+    const spoken = document.createElement("span");
+    spoken.className = "sr-only";
+    spoken.textContent = phrase;
+    end.replaceChildren(spoken, letters);
+  }
 
   const stagger = (selector, step) => {
     document.querySelectorAll(selector).forEach((element, index) => {
@@ -154,7 +209,7 @@ if (!calm && "IntersectionObserver" in window) {
     });
   });
   document
-    .querySelectorAll(".clients img, .heading, .flush__copy p, .editorial .action, .wall figure, .close > div, .foot__base")
+    .querySelectorAll(".clients img, .heading, .flush__copy p, .editorial .action, .wall figure, .close > div, .foot__base, .contact-services, .quotes figure, .page-next li, .writing__list li, .timeline > li, .resume__side > section, .resume-dripton")
     .forEach((element) => {
       element.dataset.reveal = "rise";
     });
@@ -162,6 +217,9 @@ if (!calm && "IntersectionObserver" in window) {
     poster.style.setProperty("--delay", `${(index % 3) * 0.1}s`);
   });
   stagger(".close > div", 0.12);
+  stagger(".quotes figure", 0.12);
+  stagger(".writing__list li", 0.04);
+  stagger(".page-next li", 0.1);
   document.querySelectorAll(".reel").forEach((reel, index) => {
     reel.querySelectorAll("[data-reveal]").forEach((element) => {
       element.style.setProperty("--delay", `${index * 0.12}s`);
