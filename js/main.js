@@ -226,7 +226,7 @@ if (!calm && "IntersectionObserver" in window) {
     });
   });
   document
-    .querySelectorAll(".clients img, .heading, .flush__copy p, .editorial .action, .wall figure, .close > div, .foot__base, .contact-services, .quotes figure, .page-next li, .writing__list li, .timeline > li, .resume__side > section, .resume-dripton")
+    .querySelectorAll(".heading, .flush__copy p, .editorial .action, .wall figure, .close > div, .foot__base, .contact-services, .quotes figure, .page-next li, .writing__list li, .timeline > li, .resume__side > section, .resume-dripton")
     .forEach((element) => {
       element.dataset.reveal = "rise";
     });
@@ -257,5 +257,5 @@ if (!calm && "IntersectionObserver" in window) {
   );
 
   document.documentElement.classList.add("anim");
-  document.querySelectorAll("[data-reveal], .foot__end").forEach((element) => reveal.observe(element));
+  document.querySelectorAll("[data-reveal], .foot__end, .clients__grid li").forEach((element) => reveal.observe(element));
 }
