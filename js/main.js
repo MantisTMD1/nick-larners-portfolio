@@ -156,7 +156,23 @@ if (hero) {
 
 // Scroll reveals
 if (!calm && "IntersectionObserver" in window) {
-  // "That's it." is split into letters, with the whole phrase kept for screen readers
+  // FLUSH swirls in a letter at a time
+  const flushTitle = document.querySelector(".heading--flush");
+  if (flushTitle) {
+    const text = flushTitle.textContent;
+    const letters = document.createElement("span");
+    letters.setAttribute("aria-hidden", "true");
+    [...text].forEach((character, index) => {
+      const letter = document.createElement("span");
+      letter.className = "letter";
+      letter.style.setProperty("--i", index);
+      letter.textContent = character;
+      letters.append(letter);
+    });
+    flushTitle.setAttribute("aria-label", text);
+    flushTitle.replaceChildren(letters);
+  }
+
   const quote = document.querySelector(".about-quote p");
   if (quote) {
     const text = quote.textContent;
@@ -176,6 +192,7 @@ if (!calm && "IntersectionObserver" in window) {
     quote.replaceChildren(spoken, words);
   }
 
+  // "That's it." is split into letters, with the whole phrase kept for screen readers
   const end = document.querySelector(".foot__end");
   if (end) {
     const phrase = end.textContent;
