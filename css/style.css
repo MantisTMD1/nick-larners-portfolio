@@ -395,6 +395,20 @@ a {
     float 7s 1.4s ease-in-out infinite alternate;
 }
 
+/* Phones held sideways: the whole logo fits on the first screen */
+@media (orientation: landscape) and (max-height: 520px) {
+  .hero__inner {
+    padding-top: calc(var(--nav-h) + 1rem);
+    align-items: start;
+  }
+
+  .hero__logo img {
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100svh - var(--nav-h) - 2rem);
+  }
+}
+
 @keyframes logo-in {
   from {
     opacity: 0;
@@ -437,6 +451,10 @@ a {
   font-size: .95em;
   font-weight: 500;
   line-height: 1.35;
+}
+
+.hero__role span {
+  white-space: nowrap;
 }
 
 .hero__lead {
@@ -670,8 +688,11 @@ a {
   transition: transform .9s var(--ease-out);
 }
 
-.player:hover img {
-  transform: scale(1.02);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .player:hover img,
+  .player:focus-visible img {
+    transform: scale(1.06);
+  }
 }
 
 .player__btn {
@@ -1473,6 +1494,15 @@ a {
   text-wrap: pretty;
 }
 
+/* Not found page */
+
+.lost-actions {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 /* Footer */
 
 .foot {
@@ -1554,7 +1584,15 @@ a {
 
   .foot__base {
     margin-top: 3.5rem;
-    row-gap: 2rem;
+    gap: 2rem .5rem;
+  }
+
+  .foot__base img {
+    width: min(36vw, 9rem);
+  }
+
+  .foot__top {
+    padding-inline: 1.1rem;
   }
 
   .foot__meta {
@@ -1599,6 +1637,10 @@ a {
 
 .anim .player[data-reveal="wipe"].in {
   clip-path: inset(0 round 6px);
+}
+
+.anim .player[data-reveal="wipe"].done img {
+  transition: transform .9s var(--ease-out);
 }
 
 .anim .player[data-reveal="wipe"].done {
