@@ -1,3 +1,6 @@
+// A note for anyone who opens the console
+console.log("Need a website? Reach out here: https://evanstmartindevelopment.com/");
+
 // Footer year stays current on its own
 document.getElementById("year").textContent = new Date().getFullYear();
 
