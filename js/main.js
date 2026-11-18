@@ -102,27 +102,88 @@ if (root.classList.contains("intro")) {
   logo.decode().then(start, start);
 }
 
-// Contact form: a static site can't send mail, so hand the message to the visitor's email app
+// Contact form: Web3Forms emails each message to Nick. Without an access key it hands the message to the visitor's email app
 const contactForm = document.querySelector(".contact-form");
 
 if (contactForm) {
   const address = "larnerco@gmail.com";
+  const key = contactForm.elements.access_key.value;
+  const live = key !== "" && key !== "YOUR_ACCESS_KEY";
+  const button = contactForm.querySelector('button[type="submit"]');
+  const label = contactForm.querySelector(".contact-form__label");
+  const status = contactForm.querySelector(".contact-form__status");
 
-  contactForm.addEventListener("submit", (event) => {
+  const say = (tone, text, withEmail) => {
+    status.dataset.tone = tone;
+    status.textContent = text;
+    if (withEmail) {
+      const link = document.createElement("a");
+      link.href = `mailto:${address}`;
+      link.textContent = address;
+      status.append(link, " directly.");
+    }
+  };
+
+  if (!live) {
+    label.textContent = "Continue in email";
+    contactForm.querySelector(".contact-form__note").textContent = "This opens your email app with your message ready to send.";
+  }
+
+  contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const { "first-name": first, "last-name": last, email, message } = contactForm.elements;
-    const name = `${first.value.trim()} ${last.value.trim()}`;
-    const subject = `Website inquiry from ${name}`;
-    const body = `${message.value.trim()}\n\n${name}\n${email.value.trim()}`;
-    location.href = `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (button.getAttribute("aria-busy") === "true") return;
 
-    // A browser with no email app fails silently, so always say what should have happened
-    const status = contactForm.querySelector(".contact-form__status");
-    status.textContent = "Your email app should open with your message, ready to send. If it didn’t, email ";
-    const link = document.createElement("a");
-    link.href = `mailto:${address}`;
-    link.textContent = address;
-    status.append(link, " directly.");
+    const { "first-name": first, "last-name": last, email, message, botcheck } = contactForm.elements;
+    const firstName = first.value.trim();
+    const name = `${firstName} ${last.value.trim()}`;
+    const subject = `Website inquiry from ${name}`;
+
+    if (!live) {
+      const body = `${message.value.trim()}\n\n${name}\n${email.value.trim()}`;
+      location.href = `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      // A browser with no email app fails silently, so always say what should have happened
+      say("info", "Your email app should open with your message, ready to send. If it didn’t, email ", true);
+      return;
+    }
+
+    const thanks = `Thanks, ${firstName}. Your message is on its way to Nick.`;
+
+    // A bot ticked the hidden box: act as if it worked and send nothing
+    if (botcheck.checked) {
+      contactForm.reset();
+      say("ok", thanks);
+      return;
+    }
+
+    button.setAttribute("aria-busy", "true");
+    label.textContent = "Sending…";
+    status.textContent = "";
+    delete status.dataset.tone;
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: key,
+          subject,
+          from_name: contactForm.elements.from_name.value,
+          name,
+          email: email.value.trim(),
+          message: message.value.trim(),
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) throw new Error(result.message || `HTTP ${response.status}`);
+      contactForm.reset();
+      say("ok", thanks);
+    } catch {
+      // Keep what they typed so nothing is lost
+      say("error", "Your message didn’t send. Please try again in a moment, or email ", true);
+    } finally {
+      button.removeAttribute("aria-busy");
+      label.textContent = "Send message";
+    }
   });
 }
 
@@ -226,7 +287,7 @@ if (!calm && "IntersectionObserver" in window) {
     });
   });
   document
-    .querySelectorAll(".heading, .flush__copy p, .editorial .action, .wall figure, .close > div, .foot__base, .contact-services, .quotes figure, .page-next li, .writing__list li, .timeline > li, .resume__side > section, .resume-dripton")
+    .querySelectorAll(".heading, .flush__copy p, .editorial .action, .wall figure, .close > div, .foot__base, .contact-services, .quotes figure, .page-next li, .story-nav li, .story__pending, .story__body > *, .story__sign, .writing__list li, .timeline > li, .resume__side > section, .resume-dripton")
     .forEach((element) => {
       element.dataset.reveal = "rise";
     });
@@ -238,6 +299,7 @@ if (!calm && "IntersectionObserver" in window) {
   stagger(".quotes figure", 0.12);
   stagger(".writing__list li", 0.04);
   stagger(".page-next li", 0.1);
+  stagger(".story-nav li", 0.1);
   document.querySelectorAll(".reel").forEach((reel, index) => {
     reel.querySelectorAll("[data-reveal]").forEach((element) => {
       element.style.setProperty("--delay", `${index * 0.12}s`);

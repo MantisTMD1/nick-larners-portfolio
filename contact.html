@@ -19,8 +19,8 @@
     <meta name="theme-color" content="#2f5d59">
     <link rel="icon" href="images/fido.webp" type="image/webp">
     <link rel="preload" as="font" href="fonts/jost-latin.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/style.css?v=20261106g">
-    <script src="js/main.js?v=20261106g" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=20261118g">
+    <script src="js/main.js?v=20261118g" defer></script>
   </head>
   <body>
     <svg class="sprite" aria-hidden="true" width="0" height="0">
@@ -67,7 +67,13 @@
       </div>
 
       <div class="contact-body">
-        <form class="contact-form" action="mailto:larnerco@gmail.com" method="post" enctype="text/plain">
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="post">
+          <!-- Web3Forms sends each message to Nick's inbox. Replace YOUR_ACCESS_KEY with the key web3forms.com emails to larnerco@gmail.com; until then the form opens the visitor's email app instead -->
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY">
+          <input type="hidden" name="subject" value="Website inquiry">
+          <input type="hidden" name="from_name" value="Larner Co website">
+          <!-- Spam trap: bots tick it, people never see it -->
+          <input class="contact-form__trap" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="contact-form__names">
             <div class="field">
               <label for="first-name">First name <span>(required)</span></label>
@@ -88,8 +94,8 @@
             <textarea id="message" name="message" rows="7" maxlength="1500" aria-describedby="message-hint" required></textarea>
           </div>
           <div class="contact-form__end">
-            <button class="action action--solid" type="submit">Continue in email <svg><use href="#i-arrow"/></svg></button>
-            <p class="contact-form__note">This opens your email app with your message ready to send.</p>
+            <button class="action action--solid" type="submit"><span class="contact-form__label">Send message</span> <svg><use href="#i-arrow"/></svg></button>
+            <p class="contact-form__note">Your message goes straight to Nick’s inbox.</p>
           </div>
           <p class="contact-form__status" role="status"></p>
         </form>

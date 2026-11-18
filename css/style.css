@@ -110,6 +110,16 @@ a {
   position: absolute;
 }
 
+/* Read by screen readers, not shown */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .skip {
   position: fixed;
   top: .75rem;
@@ -623,6 +633,8 @@ a {
 .about-quote,
 .page-next,
 .writing,
+.story,
+.story-nav,
 .resume,
 .resume-dripton {
   width: 100%;
@@ -1347,6 +1359,28 @@ a {
   line-height: 1.4;
 }
 
+/* Sent or failed: a coloured edge says which at a glance */
+.contact-form__status[data-tone="ok"],
+.contact-form__status[data-tone="error"] {
+  padding: .85rem 1rem;
+  border-left: 3px solid var(--gold-bright);
+  background: rgb(0 0 0 / .45);
+}
+
+.contact-form__status[data-tone="error"] {
+  border-left-color: #ff9c8a;
+}
+
+.contact-form button[aria-busy="true"] {
+  cursor: progress;
+  opacity: .75;
+}
+
+/* The spam trap stays out of sight and out of the tab order */
+.contact-form__trap {
+  display: none;
+}
+
 .contact-form__status a {
   color: var(--gold-bright);
 }
@@ -1644,6 +1678,191 @@ a {
 
 .writing__list a:hover svg {
   transform: translateX(.1em);
+}
+
+/* Story pages: a single readable column under a large title */
+
+.story-head__back {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+  color: var(--gold-bright);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.story-head__back svg {
+  width: 1.1em;
+  height: 1.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  rotate: 180deg;
+  transition: transform .35s var(--ease-out);
+}
+
+.story-head__back:hover svg {
+  transform: translateX(3px);
+}
+
+.story-head .page-head__title {
+  max-width: 14ch;
+  font-size: clamp(2.25rem, .5rem + 9vw, 8.5rem); /* Small enough at 320px that the longest title word, Shroomagoober, never breaks */
+  line-height: .98;
+  overflow-wrap: anywhere;
+}
+
+.story-head__count {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  color: var(--text-soft);
+  font-size: clamp(1rem, .9rem + .3vw, 1.2rem);
+  font-variant-numeric: tabular-nums;
+  animation-delay: .12s;
+}
+
+.story {
+  padding-top: clamp(3rem, 6vw, 5rem);
+}
+
+/* Paste the text as <p> elements; for a poem add the class story__body--verse and keep its line breaks */
+.story__body {
+  max-width: 38rem;
+  font-size: clamp(1.15rem, 1rem + .45vw, 1.4rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.story__body p + p {
+  margin-top: 1.1em;
+}
+
+/* "Part One", "Part Two": a gold rule and label that break the story into sections */
+.story__part {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25em;
+  color: var(--gold-bright);
+  font-size: clamp(1rem, .9rem + .3vw, 1.15rem);
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.story__part::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--gold);
+}
+
+.story__body * + .story__part {
+  margin-top: 2.75em;
+}
+
+.story__body--verse p {
+  white-space: pre-line;
+}
+
+/* One span per line of verse: a line too long for a phone wraps with an indent, so it can't be mistaken for the next line */
+.story__body--verse .line {
+  display: block;
+  padding-left: 1.25em;
+  text-indent: -1.25em;
+}
+
+/* Sign-off: Nick's dog and name close every story */
+.story__sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(.9rem, 2vw, 1.25rem);
+  max-width: 38rem;
+  margin-top: clamp(3.5rem, 7vw, 5rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid rgb(244 241 234 / .16);
+  color: var(--text);
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+}
+
+.story__sign img {
+  width: clamp(5.5rem, 4.5rem + 3vw, 7rem);
+  aspect-ratio: 1;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+.story__pending {
+  max-width: 38rem;
+  padding-block: clamp(1.5rem, 3vw, 2.25rem);
+  border-block: 1px solid rgb(244 241 234 / .22);
+}
+
+.story__pending p {
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.25rem, 1.05rem + .7vw, 1.75rem);
+  line-height: 1.35;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+
+.story-nav {
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+}
+
+.story-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+@media (min-width: 760px) {
+  .story-nav ul {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--gap);
+  }
+
+  .story-nav li + li {
+    text-align: right;
+  }
+}
+
+.story-nav li {
+  border-top: 1px solid var(--gold);
+}
+
+.story-nav a {
+  display: block;
+  padding-block: clamp(.9rem, 1.6vw, 1.4rem);
+  color: var(--text);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.story-nav small {
+  display: block;
+  margin-bottom: .3rem;
+  color: var(--text-soft);
+  font-size: 1rem;
+}
+
+.story-nav span {
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.025em;
+}
+
+.story-nav a:hover,
+.story-nav a:focus-visible {
+  color: var(--gold-bright);
 }
 
 /* Resume page */
