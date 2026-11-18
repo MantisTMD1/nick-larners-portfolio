@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Share card</title>
+<style>
+@font-face { font-family: "Jost"; font-weight: 400 700; src: url("fonts/jost-latin.woff2") format("woff2"); }
+* { margin: 0; box-sizing: border-box; }
+html, body { width: 1200px; height: 630px; overflow: hidden; background: #000; }
+.card {
+  position: relative;
+  width: 1200px;
+  height: 630px;
+  padding: 64px 72px 56px;
+  display: flex;
+  flex-direction: column;
+  color: #f4f1ea;
+  font-family: "Jost", sans-serif;
+  background:
+    radial-gradient(120% 90% at 85% 0%, rgb(216 179 26 / .14), transparent 55%),
+    linear-gradient(rgb(0 0 0 / .35), rgb(0 0 0 / .55)),
+    url("images/paper.webp") center / cover;
+}
+.label {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #efcb37;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.label::after { content: ""; flex: 1; height: 2px; background: #d8b31a; }
+.title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.title h1 {
+  max-width: 1000px;
+  font-size: 150px;
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.by {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 36px;
+  font-weight: 500;
+}
+.by img {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+.logo { width: 210px; height: auto; opacity: .95; }
+</style>
+</head>
+<body>
+<div class="card">
+  <p class="label" id="label">Writing</p>
+  <div class="title"><h1 id="title">Title</h1></div>
+  <div class="foot">
+    <p class="by"><img src="images/frank.webp" alt="">Nick Larner</p>
+    <img class="logo" src="images/logo-footer.webp" alt="">
+  </div>
+</div>
+<script>
+// Renders one story's card: share-card.html?title=Loser&kind=Poem
+const params = new URLSearchParams(location.search);
+const title = document.getElementById("title");
+title.textContent = params.get("title") || "Title";
+document.getElementById("label").textContent = `Writing · ${params.get("kind") || "Story"}`;
+// Shrink the title until it fits in two lines and the box
+document.fonts.ready.then(() => {
+  const box = title.parentElement;
+  let size = 150;
+  const lineCount = () => Math.round(title.offsetHeight / (size * .95));
+  while (size > 60 && (title.scrollWidth > box.clientWidth || title.offsetHeight > box.clientHeight || lineCount() > 2)) {
+    size -= 4;
+    title.style.fontSize = `${size}px`;
+  }
+  document.body.dataset.ready = "true";
+});
+</script>
+</body>
+</html>

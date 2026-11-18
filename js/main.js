@@ -287,7 +287,7 @@ if (!calm && "IntersectionObserver" in window) {
     });
   });
   document
-    .querySelectorAll(".heading, .flush__copy p, .editorial .action, .wall figure, .close > div, .foot__base, .contact-services, .quotes figure, .page-next li, .story-nav li, .story__pending, .story__body > *, .story__sign, .writing__list li, .timeline > li, .resume__side > section, .resume-dripton")
+    .querySelectorAll(".heading, .flush__copy p, .editorial .action, .wall figure, .close > div, .foot__base, .contact-services, .quotes figure, .page-next li, .story-nav li, .story__body > *, .story__sign, .writing__list li, .timeline > li, .resume__side > section, .resume-dripton")
     .forEach((element) => {
       element.dataset.reveal = "rise";
     });

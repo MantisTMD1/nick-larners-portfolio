@@ -3,3 +3,4 @@ exclude:
   - PRODUCT.md
   - "images/*.json"
   - "images/clients/*.json"
+  - share-card.html

@@ -1798,20 +1798,6 @@ a {
   object-position: 50% 20%;
 }
 
-.story__pending {
-  max-width: 38rem;
-  padding-block: clamp(1.5rem, 3vw, 2.25rem);
-  border-block: 1px solid rgb(244 241 234 / .22);
-}
-
-.story__pending p {
-  margin-bottom: 1.5rem;
-  font-size: clamp(1.25rem, 1.05rem + .7vw, 1.75rem);
-  line-height: 1.35;
-  letter-spacing: -.012em;
-  text-wrap: pretty;
-}
-
 .story-nav {
   padding-top: clamp(3.5rem, 7vw, 6rem);
 }
