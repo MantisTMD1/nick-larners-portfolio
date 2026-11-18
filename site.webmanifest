@@ -1,0 +1,10 @@
+{
+  "name": "Larner Co",
+  "short_name": "Larner Co",
+  "icons": [
+    { "src": "images/icon-192.png", "sizes": "192x192", "type": "image/png" }
+  ],
+  "theme_color": "#2f5d59",
+  "background_color": "#000000",
+  "display": "browser"
+}
